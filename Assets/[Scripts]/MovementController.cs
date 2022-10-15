@@ -24,10 +24,20 @@ public class MovementController : MonoBehaviour
     public SpriteRendererController spriteAnimRight;
     private SpriteRendererController activeAnimation;
 
+    [Header("Camera")]
+    Camera cam;
+    bool translate;
+    [Range(0f, 2f)]
+    float moveCam = 0;
+    float MoveCamRight2 = 0;
+    float moveCamRight = 0;
+
+
 
 
     private void Awake()
     {
+        cam = Camera.main;
         rigidbody = GetComponent<Rigidbody2D>();
        activeAnimation =  spriteAnimDown;
     }
@@ -40,34 +50,60 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveCamera();
+
         if (Input.GetKey(inputUp))
         {
-            Debug.Log(" NEW DIRECTION UP");
             SetDirection(Vector2.up, spriteAnimUp);
-           
         }
         else if (Input.GetKey(inputDown))
         {
-            Debug.Log(" NEW DIRECTION DOWN");
             SetDirection(Vector2.down, spriteAnimDown);
-            
+
         }
         else if (Input.GetKey(inputLeft))
         {
-            Debug.Log(" NEW DIRECTION LEFT");
             SetDirection(Vector2.left, spriteAnimLeft);
-            
+
         }
         else if (Input.GetKey(inputRight))
         {
-            Debug.Log(" NEW DIRECTION RIGHT");
             SetDirection(Vector2.right, spriteAnimRight);
-            
         }
         else
         {
-            Debug.Log("NOT MOVING");
             SetDirection(Vector2.zero, activeAnimation);
+        }
+    }
+
+    private void MoveCamera()
+    {
+        if (transform.position.x < -0.1f && moveCam >= 0 && Input.GetKey(inputLeft))
+        {
+            MoveCamToLeft();
+        }
+
+        if (transform.position.x > 0.1f && moveCam <= 1.5 && Input.GetKey(inputRight))
+        {
+            MoveCamToRight();
+        }
+    }
+
+    private void MoveCamToRight()
+    {
+        cam.transform.position = new Vector3(cam.transform.position.x + (moveCam * 1 / 5), cam.transform.position.y, cam.transform.position.z);
+        if (moveCam < 1.5)
+        {
+            moveCam += 0.05f;
+        }
+    }
+
+    private void MoveCamToLeft()
+    {
+        cam.transform.position = new Vector3(cam.transform.position.x - (moveCam * 1 / 5), cam.transform.position.y, cam.transform.position.z);
+        if (moveCam >= 0)
+        {
+            moveCam -= 0.05f;
         }
     }
 
@@ -90,5 +126,10 @@ public class MovementController : MonoBehaviour
 
         activeAnimation = spriteController;
         activeAnimation.idle = direction == Vector2.zero;
+    }
+
+    public void MoveUp()
+    {
+        SetDirection(Vector2.up, spriteAnimUp);
     }
 }
