@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ScreenManager : MonoBehaviour
 {
-  
-
-
 
    public void MainMenu()
     {

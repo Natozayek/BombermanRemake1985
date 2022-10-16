@@ -10,26 +10,34 @@ public class BombController : MonoBehaviour
     [Header("Bomb")]
     public GameObject bombPrefab;
     public KeyCode InputDropBomb = KeyCode.Space;
-    public float bombFueseTime = 2.0f;
+    public float bombFueseTime = 3.0f;
     public int bombAmount = 1;
     private int bombsRemaining;
 
     [Header("Explosion")]
-    public Explosion explosionPrefab;
+    public GameObject explosionPrefab;
+    public Explosion explosion2;
     public LayerMask explosionLayerMask;
     public float explosionDuration = 1f;
     public int explosionRadius = 1;
 
     [Header("Destructible")]
-    public Tilemap destructibleTiles;
+    public GameObject destructibleTiles;
     public Destructible destructiblePrefab;
 
 
     private void OnEnable()
     {
         bombsRemaining = bombAmount;
+        explosionPrefab = Resources.Load<GameObject>("Prefabs/Explosion");
+        explosion2 = explosionPrefab.GetComponent<Explosion>();
     }
 
+    private void Start()
+    {
+        destructibleTiles = GameObject.Find("DestructibleTiles");
+      
+    }
     private void Update()
     {
         if(bombsRemaining > 0 && Input.GetKeyDown(InputDropBomb))
@@ -48,16 +56,10 @@ public class BombController : MonoBehaviour
 
         GameObject bomb = Instantiate(bombPrefab, pos, Quaternion.identity);
         bombsRemaining--;
-      
-        yield return new WaitForSeconds(1.0f);
-        bomb.GetComponent<CircleCollider2D>().isTrigger = false;
-
+     
         yield return new WaitForSeconds(bombFueseTime);
-        bomb.GetComponent<CircleCollider2D>().isTrigger = false;
-        Destroy(bomb);
-
-
-        Explosion explosion = Instantiate(explosionPrefab, pos, Quaternion.identity);
+      
+        Explosion explosion = Instantiate(explosionPrefab.GetComponent<Explosion>(), pos, Quaternion.identity);
         explosion.SetActiveRenderer(explosion.start);
         explosion.DestroyAfter(explosionDuration);
 
@@ -66,7 +68,7 @@ public class BombController : MonoBehaviour
         Explode(pos, Vector2.left, explosionRadius);
         Explode(pos, Vector2.right, explosionRadius);
 
-        Destroy(bomb.gameObject);
+        Destroy(bomb);
         bombsRemaining++;
     }
 
@@ -81,11 +83,11 @@ public class BombController : MonoBehaviour
 
         if (Physics2D.OverlapBox(position, Vector2.one / 2f, 0f, explosionLayerMask))
         {
-            ClearDestructible(position);
+           ClearDestructible(position);
             return;
         }
 
-        Explosion explosion = Instantiate(explosionPrefab, position, Quaternion.identity);
+        Explosion explosion = Instantiate(explosion2, position, Quaternion.identity);
         explosion.SetActiveRenderer(length > 1 ? explosion.middle : explosion.end);
         explosion.SetDirection(direction);
         explosion.DestroyAfter(explosionDuration);
@@ -95,13 +97,28 @@ public class BombController : MonoBehaviour
 
     private void ClearDestructible(Vector2 position)
     {
-        Vector3Int cell = destructibleTiles.WorldToCell(position);
-        TileBase tile =destructibleTiles.GetTile(cell);
+        Vector3Int cell = destructibleTiles.GetComponent<Tilemap>().WorldToCell(position);
+        TileBase tile =destructibleTiles.GetComponent<Tilemap>().GetTile(cell);
 
         if(tile != null)
         {
             Instantiate(destructiblePrefab, position, Quaternion.identity);
-            destructibleTiles.SetTile(cell, null);
+            destructibleTiles.GetComponent<Tilemap>().SetTile(cell, null);
+            ScoreManager.instance.AddScore(100);
         }
     }
+
+    public void AddBomb()
+    {
+        bombAmount++;
+        bombsRemaining++;
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bomb"))
+        {
+            other.isTrigger = false;
+        }
+    }
+
 }

@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 9222347988336403591}
   - component: {fileID: 4400563781391832188}
   - component: {fileID: 3804157105926553337}
-  - component: {fileID: 4228683108294071164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,32 +111,6 @@ MonoBehaviour:
   animationFrame: 0
   loop: 1
   idle: 0
---- !u!114 &4228683108294071164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5056585247912382663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f962026c762f94b4a9860ea78ab0cc56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleSprite: {fileID: -6199642483750245169, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  animationSprites:
-  - {fileID: -6199642483750245169, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  - {fileID: -8283804931705764354, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  - {fileID: -4016695435015510347, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  - {fileID: -755595364959066024, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  - {fileID: 4542206938597643258, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  - {fileID: 1960144569077839259, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  - {fileID: -3175918128893223224, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  - {fileID: -6771676236449578781, guid: e047a80dd0eff124dbb3b43a58792cb9, type: 3}
-  animationTime: 0.25
-  animationFrame: 0
-  loop: 1
-  idle: 1
 --- !u!1 &6033781109887512257
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +122,7 @@ GameObject:
   - component: {fileID: 5149536995694693665}
   - component: {fileID: 851033278583006556}
   - component: {fileID: 8420054832030557373}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +233,7 @@ GameObject:
   - component: {fileID: 4228320782798848893}
   - component: {fileID: 2397500516517765486}
   - component: {fileID: 2424365448355469221}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +344,7 @@ GameObject:
   - component: {fileID: 665618994945172960}
   - component: {fileID: 5660551135164379093}
   - component: {fileID: 8604979307215273769}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +379,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

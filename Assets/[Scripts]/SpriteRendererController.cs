@@ -38,7 +38,7 @@ public class SpriteRendererController : MonoBehaviour
         {
             animationFrame = 0;
         }
-        if(idle)
+        if (idle)
         {
             spriteRenderer.sprite = idleSprite;
         }
@@ -47,5 +47,6 @@ public class SpriteRendererController : MonoBehaviour
         {
             spriteRenderer.sprite = animationSprites[animationFrame];
         }
+        
     }
 }
