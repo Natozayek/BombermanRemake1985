@@ -25,6 +25,8 @@ public class BombController : MonoBehaviour
     public GameObject destructibleTiles;
     public Destructible destructiblePrefab;
 
+    private bool bombActivated;
+    public static BombController instance;
 
     private void OnEnable()
     {
@@ -32,7 +34,11 @@ public class BombController : MonoBehaviour
         explosionPrefab = Resources.Load<GameObject>("Prefabs/Explosion");
         explosion2 = explosionPrefab.GetComponent<Explosion>();
     }
-
+    private void Awake()
+    {
+        instance = this;
+        
+    }
     private void Start()
     {
         destructibleTiles = GameObject.Find("DestructibleTiles");
@@ -40,13 +46,12 @@ public class BombController : MonoBehaviour
     }
     private void Update()
     {
-        if(bombsRemaining > 0 && Input.GetKeyDown(InputDropBomb))
+        if(bombsRemaining > 0 && bombActivated)
         {
             StartCoroutine(PlaceBomb());
 
         }
     }
-
     public IEnumerator PlaceBomb()
     {
         Vector2 pos = transform.position;
@@ -104,7 +109,6 @@ public class BombController : MonoBehaviour
         {
             Instantiate(destructiblePrefab, position, Quaternion.identity);
             destructibleTiles.GetComponent<Tilemap>().SetTile(cell, null);
-            ScoreManager.instance.AddScore(100);
         }
     }
 
@@ -119,6 +123,15 @@ public class BombController : MonoBehaviour
         {
             other.isTrigger = false;
         }
+    }
+
+    public void PointerDownBomb()
+    {
+        instance.bombActivated = true;
+    }
+    public void PointerUpBomb()
+    {
+        instance.bombActivated = false;
     }
 
 }

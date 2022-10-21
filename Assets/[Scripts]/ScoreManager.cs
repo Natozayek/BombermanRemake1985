@@ -1,20 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     private int score;
+    public int finalScore;
 
     private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if( instance != this )
+        {
+            Destroy(gameObject);
+        }
+        
+        
 
     }
-    void Start()
+    private void OnLevelWasLoaded(int level)
     {
-        AddScore(0);
+        UserInterfaceManager.instance.FinalScore();
     }
 
     public int ReturnScore()
@@ -26,6 +38,12 @@ public class ScoreManager : MonoBehaviour
     {
             score += amount;
             UserInterfaceManager.instance.UpdateScore(score);
+    }
+
+    public void AddFinalScore(int amount)
+    {
+        finalScore += amount;
+        
     }
 
     public void ResetScore()

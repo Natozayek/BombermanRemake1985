@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2362609247552984297}
   m_Layer: 9
   m_Name: PickUpSeepdIncrease
-  m_TagString: Untagged
+  m_TagString: PickUP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ScreenManager : MonoBehaviour
 {
-
    public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -25,8 +24,6 @@ public class ScreenManager : MonoBehaviour
     {
         SceneManager.LoadScene("LoseScreen");
     }
-
-
     public IEnumerator skipScene()
     {
         yield return new WaitForSeconds(10.0f);

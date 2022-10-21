@@ -6,14 +6,12 @@ public class Destructible : MonoBehaviour
 {
     public float destructionTime = 1.0f;
     [Range(0f, 1f)]
-    public float ItemSpawnChance = 0.2f;
+    public float ItemSpawnChance = 0.1f;
     public GameObject[] spawnPickup;
-
     private void Start()
     {
         Destroy(gameObject, destructionTime);
     }
-
     private void OnDestroy()
     {
         if(spawnPickup.Length > 0 && Random.value < ItemSpawnChance)

@@ -8,16 +8,11 @@ public class UserInterfaceManager : MonoBehaviour
 {
     public static UserInterfaceManager instance;
     public Text LiveAmmount, scoreText;
-
-
-    // Start is called before the first frame update
     void Awake()
     {
         if (instance == null)
         {
             instance = this; // In first scene, make us the singleton.
-           
-            
         }
         else if (instance != this)
             Destroy(gameObject); // On reload, singleton already set, so destroy duplicate.
@@ -26,8 +21,6 @@ public class UserInterfaceManager : MonoBehaviour
     {
         Invoke(nameof(LoseScreen), 1.25f);
     }
-
-
     public void UpdateLivesAmount(int amount)
     {
         LiveAmmount.text = amount.ToString();
@@ -35,6 +28,11 @@ public class UserInterfaceManager : MonoBehaviour
     public void UpdateScore(int amount)
     {
         scoreText.text = amount.ToString("D3");
+    }
+
+    public void FinalScore()
+    {
+        scoreText.text = ScoreManager.instance.finalScore.ToString("D3");
     }
     private void LoseScreen()
     {
