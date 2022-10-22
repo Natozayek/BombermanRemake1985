@@ -6,6 +6,7 @@ public class Explosion : MonoBehaviour
     public SpriteRendererController middle;
     public SpriteRendererController end;
 
+    
     public void SetActiveRenderer(SpriteRendererController renderer)
     {
         start.enabled = renderer == start;

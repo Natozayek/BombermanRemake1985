@@ -11,9 +11,9 @@ public class EnemyAI : MonoBehaviour
 {  
     [Header("Sprites")]
     //public SpriteRendererController spriteAnimUp;
-    public SpriteRendererController spriteAnimDown;
     //public SpriteRendererController spriteAnimLeft;
     //public SpriteRendererController spriteAnimRight;
+    public SpriteRendererController spriteAnimDown;
     public SpriteRendererController spriteAnimDeath;
     private SpriteRendererController activeAnimation;
     public static EnemyAI Instance;
@@ -69,7 +69,6 @@ public class EnemyAI : MonoBehaviour
         float velocity = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, velocity);
     }
-
     private void MoveNoAnim()
     {
         if (currentPath.Count == 0 && Vector2.Distance(transform.position, Player.transform.position) > 1f)
@@ -96,13 +95,12 @@ public class EnemyAI : MonoBehaviour
             isMoving = true;
         }
     }
-
     private void setSpriteController( SpriteRendererController spriteController)
     {
         //spriteAnimUp.enabled = spriteController == spriteAnimUp;
-        spriteAnimDown.enabled = spriteController == spriteAnimDown;
         //spriteAnimLeft.enabled = spriteController == spriteAnimLeft; 
         //spriteAnimRight.enabled = spriteController == spriteAnimRight;
+        spriteAnimDown.enabled = spriteController == spriteAnimDown;
         activeAnimation = spriteController;
     }
     public void CalculatePossibleWay()
@@ -147,13 +145,13 @@ public class EnemyAI : MonoBehaviour
 
     public void DeathSequence()
     {
-        //enabled = false;
+       
         //Disable renderers
         //spriteAnimUp.enabled = false;
-        spriteAnimDown.enabled = false;
         //spriteAnimLeft.enabled = false;
         //spriteAnimRight.enabled = false;
 
+        spriteAnimDown.enabled = false;
         GameManager.instance.initialEnemies -= 1;
         activeAnimation = spriteAnimDeath;
         spriteAnimDeath.enabled = true;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
+//Script to handle bombs and partially the explosions
 public class BombController : MonoBehaviour
 {
     [Header("Bomb")]
@@ -27,6 +27,9 @@ public class BombController : MonoBehaviour
 
     private bool bombActivated;
     public static BombController instance;
+
+    [SerializeField] AudioSource placeBombSFX;
+    [SerializeField] AudioSource explosionSFX;
 
     private void OnEnable()
     {
@@ -58,16 +61,20 @@ public class BombController : MonoBehaviour
         pos.x = Mathf.Round(pos.x);
         pos.y = Mathf.Round(pos.y);
 
-
+        //Instantiate bomb at player's position
         GameObject bomb = Instantiate(bombPrefab, pos, Quaternion.identity);
         bombsRemaining--;
+        placeBombSFX.Play();
      
         yield return new WaitForSeconds(bombFueseTime);
       
+        //Instantiate explosion at bomb's position
         Explosion explosion = Instantiate(explosionPrefab.GetComponent<Explosion>(), pos, Quaternion.identity);
         explosion.SetActiveRenderer(explosion.start);
         explosion.DestroyAfter(explosionDuration);
+        explosionSFX.Play();
 
+        //Run explosion sequence
         Explode(pos, Vector2.up, explosionRadius);
         Explode(pos, Vector2.down, explosionRadius);
         Explode(pos, Vector2.left, explosionRadius);
@@ -85,15 +92,15 @@ public class BombController : MonoBehaviour
         }
 
         position += direction;
-
+        // Clear destructible tiles
         if (Physics2D.OverlapBox(position, Vector2.one / 2f, 0f, explosionLayerMask))
         {
            ClearDestructible(position);
             return;
         }
-
+        
         Explosion explosion = Instantiate(explosion2, position, Quaternion.identity);
-        explosion.SetActiveRenderer(length > 1 ? explosion.middle : explosion.end);
+        explosion.SetActiveRenderer(length > 1 ? explosion.middle : explosion.end); // if leght greater than 1 run middle, otherwise run end.
         explosion.SetDirection(direction);
         explosion.DestroyAfter(explosionDuration);
 
@@ -125,6 +132,7 @@ public class BombController : MonoBehaviour
         }
     }
 
+    //Functions to trigger bomb events for mobile input
     public void PointerDownBomb()
     {
         instance.bombActivated = true;

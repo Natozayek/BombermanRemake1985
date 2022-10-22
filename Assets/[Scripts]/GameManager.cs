@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemyPrefabs;
     [SerializeField] AudioSource BGM;
 
+    //Singleton for game scene
     void Awake()
     {
         if (instance == null)
@@ -35,15 +36,12 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        //Initial parameters for game scene
         initialEnemies = 5;
-        BGM = GetComponent<AudioSource>();
         currentLives = initialLives;
         CreatePlayer();
         CreateEnemies();
-        BGM.Play();
-        
     }
-
     public void Update()
     {
         if(initialEnemies == 0)
@@ -51,7 +49,6 @@ public class GameManager : MonoBehaviour
             UserInterfaceManager.instance.ShowGameOver();
         }
     }
-
     public void resetGame()
     {
         if(currentLives >0)
@@ -86,7 +83,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
     private void CreateEnemies()
     {
         for (int i = 0; i < initialEnemies; i++)
@@ -103,7 +99,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("LevelOne");
     }
-
     public void IncreaseLives()
     {
         currentLives++;

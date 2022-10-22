@@ -26,6 +26,7 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         Object = GameObject.Find("timeAmmount");
+
         // Starts the timer automatically
         timeText = Object.GetComponent<Text>();
         timerIsRunning = true;

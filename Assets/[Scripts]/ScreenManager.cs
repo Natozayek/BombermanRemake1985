@@ -5,30 +5,59 @@ using UnityEngine.SceneManagement;
 
 public class ScreenManager : MonoBehaviour
 {
+    //Functions to traverse between scenes.
    public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(goToMainMenu());
     }
 
     public void GameLevel()
     {
-        SceneManager.LoadScene("LevelOne");
+        StartCoroutine(goToGameScene());
+    }
+
+    public void StageTransition()
+    {
+        StartCoroutine( loadingScene());
     }
 
     public void InstructionScene()
     {
-        SceneManager.LoadScene("Instructions");
+        StartCoroutine( goToInstructionsMenu());
     }
 
     public void GameOverScene()
     {
         SceneManager.LoadScene("LoseScreen");
     }
-    public IEnumerator skipScene()
+    public IEnumerator loadingScene()
     {
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(0.5f);
 
-        GameOverScene();
+        SceneManager.LoadScene("LoadingScene");
+
+    }
+
+    public IEnumerator goToMainMenu()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        SceneManager.LoadScene("MainMenu");
+
+    }
+    public IEnumerator goToInstructionsMenu()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        SceneManager.LoadScene("Instructions");
+
+    }
+
+    public IEnumerator goToGameScene()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        SceneManager.LoadScene("LevelOne");
 
     }
 }

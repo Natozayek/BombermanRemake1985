@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script to trigge Chase Behaviour
 public class TriggerChase : MonoBehaviour
 {
     [SerializeField]
     private EnemyAI EnemyAI;
     private Collider2D myCollider;
-    private Transform myTransform;
   [SerializeField] GameObject ChildGameObject1; 
     private void Start()
     {
-       // myTransform = GetComponent<Transform>();
-        myCollider = GetComponent<Collider2D>();
-      
+        myCollider = GetComponent<Collider2D>(); 
     }
     private void Update()
     {
@@ -25,7 +23,6 @@ public class TriggerChase : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             EnemyAI.canSeePlayer = true;
-
         }    
     }
 

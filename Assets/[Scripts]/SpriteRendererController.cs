@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Script to take care of any animation in the game
 public class SpriteRendererController : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;

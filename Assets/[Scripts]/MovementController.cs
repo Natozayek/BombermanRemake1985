@@ -38,14 +38,24 @@ public class MovementController : MonoBehaviour
     float moveCam = 0;
     public bool usingMobileInput;
 
+    //Movement
     private bool moveUp;
     private bool moveDown;
     private bool moveLeft; 
     private bool moveRight;
     private float horizontalMove;
     private float verticalMove;
+    private bool isMoving;
+
+    //Instance
     public static MovementController Instance;
 
+    //Sound effects
+
+    [SerializeField] AudioSource walkSFX;
+    [SerializeField] AudioSource updateBGM;
+    [SerializeField] AudioSource stopBGM;
+    [SerializeField] AudioSource deathSFX;
    
     private void Awake()
     {
@@ -77,34 +87,52 @@ public class MovementController : MonoBehaviour
  
     void Update()
     {
-
         MoveCamera();
         GetMobileInput();
-
+        if (isMoving)
+        {
+            if(!walkSFX.isPlaying)
+            {
+                walkSFX.Play();
+                
+            }
+        }
+        else
+        {
+            walkSFX.Stop();
+        }
     }
+
+    //Functions to move player through mobile or conventional input
     public void GetMobileInput()
     {
 
         if (moveUp)
         {
             SetDirection(Vector2.up, spriteAnimUp);
+            isMoving = true;
         }
         else if (moveDown)
         {
-
             SetDirection(Vector2.down, spriteAnimDown);
+            isMoving = true;
+          
+
         }
         else if (moveLeft)
         {
             SetDirection(Vector2.left, spriteAnimLeft);
+            isMoving = true;
         }
         else if (moveRight)
         {
             SetDirection(Vector2.right, spriteAnimRight);
+            isMoving = true;
         }
         else
         {
             SetDirection(Vector2.zero, activeAnimation);
+            isMoving = false;
         }
 
     }
@@ -167,6 +195,8 @@ public class MovementController : MonoBehaviour
             moveCam -= 0.05f;
         }
     }
+
+    //Sets the direction of the player and the new animation
     private void SetDirection(Vector2 newDirection, SpriteRendererController spriteController)
     {
         direction = newDirection;
@@ -184,7 +214,19 @@ public class MovementController : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Explosion"))
         {
+            deathSFX.Play();
             DeathSequence();
+
+        }
+        if (other.gameObject.tag == "PickUP")
+        {
+
+            ScoreManager.instance.AddScore(1000);
+            ScoreManager.instance.AddFinalScore(1000); 
+
+            stopBGM.Stop();
+            if(!updateBGM.isPlaying)
+            updateBGM.Play();
 
         }
     }
@@ -192,6 +234,7 @@ public class MovementController : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
+            deathSFX.Play();
             DeathSequence();
         }
     }
@@ -199,8 +242,7 @@ public class MovementController : MonoBehaviour
     {
         this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
         enabled = false;
-       //etComponent<BombController>().enabled = false;
-
+       
         //Disable renderers
         spriteAnimUp.enabled=false;
         spriteAnimDown.enabled=false;
@@ -223,6 +265,8 @@ public class MovementController : MonoBehaviour
         this.gameObject.SetActive(false);
         Destroy(gameObject, 2);
     }
+
+    //Event triggers for mobile input
     public void PointerDownLeft()
     {
         Instance.moveLeft = true;

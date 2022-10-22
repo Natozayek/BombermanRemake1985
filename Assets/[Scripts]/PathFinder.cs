@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+//Pathfinder script for enemy AI calculate their possible path
 public class Node
 {
     public int F; // F=G+H

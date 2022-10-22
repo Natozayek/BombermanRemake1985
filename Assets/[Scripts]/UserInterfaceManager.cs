@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UserInterfaceManager : MonoBehaviour
 {
+    //Script to handle all the User interface actions in the game scene
     public static UserInterfaceManager instance;
     public Text LiveAmmount, scoreText;
     void Awake()
@@ -29,7 +30,6 @@ public class UserInterfaceManager : MonoBehaviour
     {
         scoreText.text = amount.ToString("D3");
     }
-
     public void FinalScore()
     {
         scoreText.text = ScoreManager.instance.finalScore.ToString("D3");

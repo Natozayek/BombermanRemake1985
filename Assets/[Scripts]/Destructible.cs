@@ -14,7 +14,8 @@ public class Destructible : MonoBehaviour
     }
     private void OnDestroy()
     {
-        if(spawnPickup.Length > 0 && Random.value < ItemSpawnChance)
+        //Generate item by a chance percentage
+        if (spawnPickup.Length > 0 && Random.value < ItemSpawnChance)
         {
             int randomIndex = Random.Range(0, spawnPickup.Length);
             Instantiate(spawnPickup[randomIndex], transform.position, Quaternion.identity);

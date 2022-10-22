@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PickUpItem : MonoBehaviour
 {
+    [SerializeField] AudioSource itemPickUP;
+
+    //Type of pick up items
     public enum ItemType
     {
         EXTRABOMB,
@@ -13,6 +16,8 @@ public class PickUpItem : MonoBehaviour
     }
 
     public ItemType type;
+
+    //Function to execute ability on collision with pick-up prefab
     private void OnItemPickUp(GameObject player)
     {
 
@@ -35,13 +40,16 @@ public class PickUpItem : MonoBehaviour
                 break;
 
         }
-        Destroy(gameObject);
+        itemPickUP.Play();
+        GetComponent<SpriteRenderer>().enabled = false;
+        Destroy(gameObject,1.4f);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
-            OnItemPickUp(other.gameObject); 
+            OnItemPickUp(other.gameObject);
+            
         }
     }
 }
