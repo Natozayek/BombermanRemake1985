@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.GraphicsBuffer;
+//using static UnityEditor.PlayerSettings;
+//using static UnityEngine.GraphicsBuffer;
 
 public class EnemyAI : MonoBehaviour
 {  
@@ -134,7 +134,9 @@ public class EnemyAI : MonoBehaviour
             isAlive = false;    
             DeathSequence();
             ScoreManager.instance.AddScore(100);
-            ScoreManager.instance.AddFinalScore(100);
+            ScoreManager.instance.AddFinalScore(100); 
+            GameManager.instance.currentEnemies--;
+            Debug.Log(GameManager.instance.currentEnemies);
         }
         if (other.gameObject.tag == "PickUp")
         {
@@ -152,7 +154,7 @@ public class EnemyAI : MonoBehaviour
         //spriteAnimRight.enabled = false;
 
         spriteAnimDown.enabled = false;
-        GameManager.instance.initialEnemies -= 1;
+    
         activeAnimation = spriteAnimDeath;
         spriteAnimDeath.enabled = true;
         Invoke(nameof(OnDeathSequenceEnded), 1.25f);

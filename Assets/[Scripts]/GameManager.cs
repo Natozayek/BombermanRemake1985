@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     int initialLives = 3;
     public int currentLives;
     public int initialEnemies;
+    public int currentEnemies;
     
 
     public GameObject playerPrefab;
@@ -38,13 +39,15 @@ public class GameManager : MonoBehaviour
     {
         //Initial parameters for game scene
         initialEnemies = 5;
+        currentEnemies = initialEnemies;
         currentLives = initialLives;
+        ScoreManager.instance.ResetScore();
         CreatePlayer();
         CreateEnemies();
     }
     public void Update()
     {
-        if(initialEnemies == 0)
+        if(currentEnemies <= 0)
         {
             UserInterfaceManager.instance.ShowGameOver();
         }
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Calling line 65");
             UserInterfaceManager.instance.ShowGameOver();
         }
       
@@ -79,6 +83,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Calling line 85");
             UserInterfaceManager.instance.ShowGameOver();
         }
 

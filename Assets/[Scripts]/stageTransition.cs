@@ -10,11 +10,9 @@ public class stageTransition : MonoBehaviour
     void Update()
     {
         timer = timer + Time.deltaTime;
-        if (timer >= 2.8)
+        if (timer >= 2.0)
         {
             SceneManager.LoadScene("LevelOne");
-
         }
-       
     }
 }

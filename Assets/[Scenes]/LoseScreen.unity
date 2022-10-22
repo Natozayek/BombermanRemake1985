@@ -179,6 +179,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverScenePrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5595817671420306915, guid: c4edc9befc18370449cf6ba43166962a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595817671731585030, guid: c4edc9befc18370449cf6ba43166962a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -11.999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595817672383857313, guid: c4edc9befc18370449cf6ba43166962a, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595817672490497590, guid: c4edc9befc18370449cf6ba43166962a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -109
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c4edc9befc18370449cf6ba43166962a, type: 3}

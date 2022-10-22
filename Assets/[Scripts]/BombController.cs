@@ -18,7 +18,7 @@ public class BombController : MonoBehaviour
     public GameObject explosionPrefab;
     public Explosion explosion2;
     public LayerMask explosionLayerMask;
-    public float explosionDuration = 1f;
+    public float explosionDuration = 0.5f;
     public int explosionRadius = 1;
 
     [Header("Destructible")]
@@ -49,11 +49,13 @@ public class BombController : MonoBehaviour
     }
     private void Update()
     {
+        
         if(bombsRemaining > 0 && bombActivated)
         {
             StartCoroutine(PlaceBomb());
 
         }
+   
     }
     public IEnumerator PlaceBomb()
     {
@@ -65,6 +67,8 @@ public class BombController : MonoBehaviour
         GameObject bomb = Instantiate(bombPrefab, pos, Quaternion.identity);
         bombsRemaining--;
         placeBombSFX.Play();
+
+
      
         yield return new WaitForSeconds(bombFueseTime);
       
@@ -73,15 +77,18 @@ public class BombController : MonoBehaviour
         explosion.SetActiveRenderer(explosion.start);
         explosion.DestroyAfter(explosionDuration);
         explosionSFX.Play();
-
+        Destroy(bomb);
         //Run explosion sequence
         Explode(pos, Vector2.up, explosionRadius);
         Explode(pos, Vector2.down, explosionRadius);
         Explode(pos, Vector2.left, explosionRadius);
         Explode(pos, Vector2.right, explosionRadius);
 
-        Destroy(bomb);
+      
         bombsRemaining++;
+
+     
+      
     }
 
     private void Explode(Vector2 position, Vector2 direction, int length)

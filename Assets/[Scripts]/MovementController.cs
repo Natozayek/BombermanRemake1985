@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
 using System.Text;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -87,8 +85,9 @@ public class MovementController : MonoBehaviour
  
     void Update()
     {
-        MoveCamera();
-        GetMobileInput();
+        //MoveCamera();
+       GetMobileInput();
+        //getConventionalInput();
         if (isMoving)
         {
             if(!walkSFX.isPlaying)
@@ -214,6 +213,9 @@ public class MovementController : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Explosion"))
         {
+            this.gameObject.GetComponent<BombController>().enabled = false;
+            this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            enabled = false;
             deathSFX.Play();
             DeathSequence();
 
@@ -234,14 +236,17 @@ public class MovementController : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
+            this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            this.gameObject.GetComponent<BombController>().enabled = false;
+            enabled = false;
             deathSFX.Play();
             DeathSequence();
         }
     }
     private void DeathSequence()
     {
-        this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
-        enabled = false;
+       
+       
        
         //Disable renderers
         spriteAnimUp.enabled=false;
@@ -258,12 +263,14 @@ public class MovementController : MonoBehaviour
     void OnDeathSequenceEnded()
     {
         spriteAnimDeath.animationFrame = 0;
+        //  enabled = true;
+
+
         enabled = true;
-        GetComponent<BombController>().enabled = true;
-        
         GameManager.instance.resetGame();
         this.gameObject.SetActive(false);
-        Destroy(gameObject, 2);
+
+        Destroy(gameObject, 2.5f);
     }
 
     //Event triggers for mobile input
