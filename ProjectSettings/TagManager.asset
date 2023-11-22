@@ -3,25 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Destructible
-  - Enemy
-  - Explosion
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Grid
-  - Bomb
-  - Explosion
-  - Item
-  - BasicEnemy
-  - Destructible
-  - Indestructible
-  - Trigger
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
